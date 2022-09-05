@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Getter
 @Setter
@@ -13,14 +14,13 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity
 @Table(name = "cidades")
-public class CidadeModel {
+public class CidadeModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer codigo;
-    @Column(length = 250, nullable = false)
-    private String cidades;
 
-    @ManyToMany
-    @JoinColumn(name = "estado_id")
+    private String cidades;
+    @ManyToOne
+    @JoinColumn(name = "estado_id", referencedColumnName = "codigo")
     private EstadoModel estadoModel;
 }
